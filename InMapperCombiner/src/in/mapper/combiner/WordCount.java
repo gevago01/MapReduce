@@ -37,7 +37,7 @@ public class WordCount {
 					.split("\\s+");
 
 			for (String word : tokens) {
-				//get word frequency
+				// get word frequency
 				Integer freq = word_freq.get(word);
 
 				if (freq == null) {
@@ -56,7 +56,7 @@ public class WordCount {
 		 * been presented to the map method. I will use this method for
 		 * implementing an in mapper combiner. CAUTION: Assumes that the data is
 		 * small enough to reside in mapper's main memory. In case of bigger
-		 * buffering buffering should be used.(once buffer full, remove and emit
+		 * data buffering should be used.(once buffer is full, remove and emit
 		 * pairs in the context)
 		 */
 		@Override
