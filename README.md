@@ -39,3 +39,6 @@ map outputs and need to be temporarily spilled to disk). In contrast, with inmap
 need to be shuffled across the network to the reducers.
 
 Moreover, there are dissadvantages to this pattern. Further details can be found in the cited book.
+
+## 2) Custom Partitioner
+A custom partitioner is useful in many ocasions. For instance when emitting composite keys of the form: (x,y), (x,z) with their corresponding values  (i.e. you emit key/value pairs of the form ((x,y),value1) and ((x,y),value2)); there is no guarantee whether the values of these two keys and their corresponding keys, will be directed to the same reducer or not. To ensure that this will happen, we need to define a custom partitioner that considers only the left word of a composite key (i.e. x). By default, the default partitioner performs a hash on the whole key, modulo the number of reducers. For a composite key, the raw byte representation is used to compute the hash value. Therefore, two key/value pairs having a composite key of the form (x,y) and (x,z) respectively, will not be assigned to the same reducer. The custom partitioner is a way for achieving exactly this behaviour. 
